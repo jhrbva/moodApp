@@ -1,0 +1,20 @@
+<ul>
+    {{#each results}}
+        <li>{{ EmplId }} : {{ Name }}</li>
+    {{/each}}
+</ul>
+
+<form action="/api/user/create" method="post">
+    <div>Name: <input type="text" name="name"></div>
+    <div>Emplid: <input type="text" name="emplid"></div>
+    <input type="submit" value="Create New User">
+</form>
+
+<br />
+
+<form action="/api/user/delete" method="post">
+    <div>Start: <input type="text" name="start"></div>
+    <div>Finish: <input type="text" name="finish"></div>
+    <input type="submit" value="Delete User">
+</form>
+
