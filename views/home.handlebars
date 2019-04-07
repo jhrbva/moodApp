@@ -1,20 +1,91 @@
+{{!-- <link rel="stylesheet" href="/styles/style.css" type='text/css'> --}}
+
 <ul>
     {{#each results}}
-        <li>{{ EmplId }} : {{ Name }}</li>
+        <li>{{ EmplId }} : {{ SName }}</li>
     {{/each}}
+    {{content}}
 </ul>
 
 <form action="/api/user/create" method="post">
-    <div>Name: <input type="text" name="name"></div>
+    <div><select type="text" name="name" id="mood-select"></select></div>
     <div>Emplid: <input type="text" name="emplid"></div>
-    <input type="submit" value="Create New User">
+    <input type="submit" id="submit" onClick="selectMood()" value="Enter">
+    <div id="mood-viz" style="width: 100px; height: 100px; border: solid 2px cyan;"></div>
+    <button id="generate" onClick="vizCalculation()">Generate Mood Viz</button>
 </form>
 
 <br />
 
-<form action="/api/user/delete" method="post">
+{{!-- <form action="/api/user/delete" method="post">
     <div>Start: <input type="text" name="start"></div>
+     <p>Hi!</p>
     <div>Finish: <input type="text" name="finish"></div>
     <input type="submit" value="Delete User">
-</form>
+</form> --}}
 
+
+{{!-- +++++++++++++ ROCK THROWING ++++++++++++ --}}
+
+<script>
+// array of moods. value = color, text = mood
+var moods = {
+  "#2471A3": "sad",
+  "#F7DC6F": "happy",
+  "#A569BD": "calm"
+};
+
+// an empty array to collet the user's selections
+var userMoods = [];
+
+//the HTML drop-down list of moods
+var select = document.getElementById("mood-select");
+//the viz window
+var mood = document.getElementById("mood-viz");
+
+//populate drop-drown with options from moods dict
+for(index in moods) {
+    select.options[select.options.length] = new Option(moods[index], index);
+}
+
+// push user selections to the array userMoods
+function selectMood() {
+  var selectedV = select.options[select.selectedIndex].value;
+  var selectedM = select.options[select.selectedIndex].text;
+  userMoods.push({key: selectedV, value: selectedM});
+  console.log(userMoods); //open console on bottom left to see user moods obj 
+}
+
+// calculate area for each color in the viz window
+function vizCalculation() {
+  //number of selections user made
+  nColors = userMoods.length;
+  //area size for each color based on this small 100x100px window - using floor function to round result down
+  aColor = Math.floor(100 / nColors);
+  
+  //fill in the window with colors
+  for(index in userMoods) {
+    //create divs to contain user moods
+    var colorSquares = document.createElement('div');
+    colorSquares.className = "moods";
+    // style newly created divs
+    var color = userMoods[index].key;
+    colorSquares.style.backgroundColor = color;
+    colorSquares.style.width  = aColor + "%";
+    colorSquares.style.height = aColor + "%";
+    
+    //colorSquares.mood.removeChild(colorSquares);
+    
+    //append user mood divs to viz window
+    mood.appendChild(colorSquares);
+  }
+}
+
+// old function for testing
+//display the selection on console and mood window
+function colorChange() {
+  var color = select.options[select.selectedIndex].value;
+  mood.style.backgroundColor = color;
+}
+
+</script>

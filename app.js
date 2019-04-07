@@ -8,13 +8,16 @@ const app = express();
 const mysql = require('mysql');
 const connection = mysql.createConnection({
   host     : 'localhost',
+  //port     : '3306',
   user     : 'root',
-  password : 'hello',
-  database : 'FakeStudent'
+  password : '12345',
+  database : 'testdb'
 });
 
-const query_test_select = 'SELECT * FROM Test ORDER BY EmplId;';
-const query_test_insert = 'INSERT INTO Test (EmplId, Name, HireDate) VALUES (?, ?, ?);';
+ // {{!-- +++++++++++++ ROCK THROWING ++++++++++++ --}}
+
+const query_test_select = 'SELECT SName FROM Test;';
+const query_test_insert = 'INSERT INTO Test (EmplId, SName, HireDate) VALUES (?, ?, ?);';
 
 app.engine('handlebars', hb({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -25,14 +28,23 @@ app.get('/', function (req, res) {
         if (error) {
             throw error;
         }
-        res.render('home', { results });
+        // {{!-- +++++++++++++ ROCK THROWING ++++++++++++ --}}
+
+        // for(index in moods) {
+        //     select.options[select.options.length] = new Option(moods[index], index);
+        // }
+
+        res.render('home',
+            { 
+                results
+            });
     });
 });
 
 app.post('/api/user/create', (req, res) => {
     const name = req.body.name;
     const emplid = req.body.emplid;
-    const hiredate = new Date().toISOString();
+    const hiredate = new Date();
     connection.query(query_test_insert, [emplid, name, hiredate], (error, results, fields) => {
         if (error) {
             throw error;
