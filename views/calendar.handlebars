@@ -1,0 +1,42 @@
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100|Squada+One" rel="stylesheet">
+
+<div class="appwrapper">
+  <!--  navbar  -->
+    <!--  navbar  -->
+  <div id="navbar">
+    <div class="logo"> <a href="/">MoodApp</a></div>
+    <div class="dropdown" onclick="dropDown()">
+        <div class="menu"></div>
+        <div class="menu"></div>
+        <div class="menu"></div>
+      <div class="dropdown-content" id="dropdown-content">
+        <a href="/"> Home </a>
+        <a href="/api/user/profile"> Profile </a>
+        <a href="/api/user/calendar"> Calendar </a>
+      </div>
+    </div>
+  </div>
+{{!-- end of navbar --}}
+
+	<p>Your Moods Last Week</p>
+  <div class="calendar-view">
+	{{#each calInfo}}
+		<div class="calendar-mood" style="background-color:{{this.color}}">{{this.mood}}</div>
+		<p> When: <small>{{this.entryTime}}</small></p>
+		<p> Duration: <small>{{this.durationInHours}} hour(s) </small></p>
+	{{/each}}
+	</div>
+<script>
+
+function dropDown() {
+  var menuLinks = document.getElementById("dropdown-content");
+  menuLinks.classList.toggle("drop");
+
+  var navbar = document.getElementById("navbar");
+  navbar.classList.toggle("navbar-drop");
+}
+
+</script>
+
+
+</div>

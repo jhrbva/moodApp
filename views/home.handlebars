@@ -1,91 +1,102 @@
-{{!-- <link rel="stylesheet" href="/styles/style.css" type='text/css'> --}}
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100|Squada+One" rel="stylesheet">
 
-<ul>
+<div class="appwrapper">
+  <!--  navbar  -->
+  <div id="navbar">
+    <div class="logo"> <a href="/">MoodApp</a></div>
+    <div class="dropdown" onclick="dropDown()">
+        <div class="menu"></div>
+        <div class="menu"></div>
+        <div class="menu"></div>
+      <div class="dropdown-content" id="dropdown-content">
+        <a href="/"> Home </a>
+        <a href="/api/user/profile"> Profile </a>
+        <a href="/api/user/calendar"> Calendar </a>
+      </div>
+    </div>
+  </div>
+{{!-- end of navbar --}}
+
+<form action="/api/user/create" method="post" onsubmit="return validateForm()" name="moodForm">
+    <p>Select a mood from the drop-down:</p>
+	<select name="moodSelect" id="mood-select">
     {{#each results}}
-        <li>{{ EmplId }} : {{ SName }}</li>
+        <option value={{ moodID }}:{{ color }}>{{ mood }}</option>	
     {{/each}}
-    {{content}}
-</ul>
-
-<form action="/api/user/create" method="post">
-    <div><select type="text" name="name" id="mood-select"></select></div>
-    <div>Emplid: <input type="text" name="emplid"></div>
-    <input type="submit" id="submit" onClick="selectMood()" value="Enter">
-    <div id="mood-viz" style="width: 100px; height: 100px; border: solid 2px cyan;"></div>
-    <button id="generate" onClick="vizCalculation()">Generate Mood Viz</button>
+	</select>
+	<div class="inputs"><p>StartTime:</p> <input type="datetime-local" step="3600" name="startTime"></div>
+	<div class="inputs"><p>Duration:</p> <input type="number" name="duration" min="1" max="5"></div>
+	
+	<input type="submit" id="submit" value="Submit Mood" >
+  {{!-- <p id="success">Mood submited!</p> --}}
+  <p id="submit-failed">Complete all form fields before submiting</p>
 </form>
 
-<br />
+<hr>
+<button id="generate" onclick="vizCalculation()">Generate Mood Viz</button>
+<div id="mood-viz"></div>
 
-{{!-- <form action="/api/user/delete" method="post">
-    <div>Start: <input type="text" name="start"></div>
-     <p>Hi!</p>
-    <div>Finish: <input type="text" name="finish"></div>
-    <input type="submit" value="Delete User">
-</form> --}}
-
-
-{{!-- +++++++++++++ ROCK THROWING ++++++++++++ --}}
+</div>
 
 <script>
-// array of moods. value = color, text = mood
-var moods = {
-  "#2471A3": "sad",
-  "#F7DC6F": "happy",
-  "#A569BD": "calm"
-};
-
-// an empty array to collet the user's selections
-var userMoods = [];
-
-//the HTML drop-down list of moods
-var select = document.getElementById("mood-select");
+//form validation
+function validateForm() {
+  var time = document.forms["moodForm"]["startTime"].value;
+  var duration = document.forms["moodForm"]["duration"].value;
+  if(duration == "" || time == "") {
+    var failedMessage = document.getElementById("submit-failed");
+    failedMessage.classList.toggle("show");
+    return false;
+  } 
+}
 //the viz window
-var mood = document.getElementById("mood-viz");
-
-//populate drop-drown with options from moods dict
-for(index in moods) {
-    select.options[select.options.length] = new Option(moods[index], index);
-}
-
-// push user selections to the array userMoods
-function selectMood() {
-  var selectedV = select.options[select.selectedIndex].value;
-  var selectedM = select.options[select.selectedIndex].text;
-  userMoods.push({key: selectedV, value: selectedM});
-  console.log(userMoods); //open console on bottom left to see user moods obj 
-}
+var vizWindow = document.getElementById("mood-viz");
 
 // calculate area for each color in the viz window
 function vizCalculation() {
-  //number of selections user made
-  nColors = userMoods.length;
-  //area size for each color based on this small 100x100px window - using floor function to round result down
-  aColor = Math.floor(100 / nColors);
-  
-  //fill in the window with colors
-  for(index in userMoods) {
-    //create divs to contain user moods
-    var colorSquares = document.createElement('div');
-    colorSquares.className = "moods";
-    // style newly created divs
-    var color = userMoods[index].key;
-    colorSquares.style.backgroundColor = color;
-    colorSquares.style.width  = aColor + "%";
-    colorSquares.style.height = aColor + "%";
-    
-    //colorSquares.mood.removeChild(colorSquares);
-    
-    //append user mood divs to viz window
-    mood.appendChild(colorSquares);
+  // Delete children if there are any
+  while (vizWindow.hasChildNodes()) {   
+    vizWindow.removeChild(vizWindow.firstChild);
   }
+
+  //number of selections user made
+  nColors = 0;
+  {{#each colorInfo}}
+	nColors += {{this.count}};
+  {{/each}}
+
+  // calculate area size for each mood square
+  aColor = Math.floor(200 / nColors);
+  
+  //create divs to contain user moods
+  {{#each colorInfo}}
+    for (let i = 0; i < {{this.count}}; i++){
+		var colorSquares = document.createElement('div');
+		colorSquares.className = "moods";
+		
+		//randomized position of mood divs
+		var posx = (Math.random() * (320 - aColor)).toFixed();
+		var posy = (Math.random() * (260 - aColor)).toFixed();
+   
+		// style newly created divs
+		var color = "{{this.color}}";
+		colorSquares.style.backgroundColor = color;
+		colorSquares.style.width  = aColor + "%";
+		colorSquares.style.height = aColor + "%";
+		colorSquares.style.left = posx + "px";
+		colorSquares.style.top = posy + "px";
+
+		vizWindow.appendChild(colorSquares);
+	}
+  {{/each}}
 }
 
-// old function for testing
-//display the selection on console and mood window
-function colorChange() {
-  var color = select.options[select.selectedIndex].value;
-  mood.style.backgroundColor = color;
-}
+function dropDown() {
+  var menuLinks = document.getElementById("dropdown-content");
+  menuLinks.classList.toggle("drop");
 
+  var navbar = document.getElementById("navbar");
+  navbar.classList.toggle("navbar-drop");
+}
 </script>
+

@@ -1,0 +1,40 @@
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100|Squada+One" rel="stylesheet">
+
+<div class="appwrapper">
+  <!--  navbar  -->
+    <!--  navbar  -->
+  <div id="navbar">
+    <div class="logo"> <a href="/">MoodApp</a></div>
+    <div class="dropdown" onclick="dropDown()">
+        <div class="menu"></div>
+        <div class="menu"></div>
+        <div class="menu"></div>
+      <div class="dropdown-content" id="dropdown-content">
+        <a href="/"> Home </a>
+        <a href="/api/user/profile"> Profile </a>
+        <a href="/api/user/calendar"> Calendar </a>
+      </div>
+    </div>
+  </div>
+{{!-- end of navbar --}}
+<div class="profile-info">
+	{{#each profInfo}}
+		<p>Username: <small>{{this.username}} </small> </p>
+		<p>Display Name: <small>{{this.displayName}}</small>  </p>
+		<p>Password: <small>{{this.password}}</small> </p>
+		<p>Signed up on:<small> {{this.creationDate}}  </small></p>
+	{{/each}}
+</div>
+
+<script>
+function dropDown() {
+  var menuLinks = document.getElementById("dropdown-content");
+  menuLinks.classList.toggle("drop");
+
+  var navbar = document.getElementById("navbar");
+  navbar.classList.toggle("navbar-drop");
+  
+}
+</script>
+
+</div>

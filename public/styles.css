@@ -1,0 +1,185 @@
+.appwrapper {
+    width: 450px;
+    height: 800px;
+    color: #f7f7f7;
+    letter-spacing: 0.5px;
+    background: #393e46;
+    font-family: "Squada One";
+    position: absolute;
+    text-align: center;
+    border: solid 1px white;
+    border-radius: 20px;
+    box-shadow: 2px 5px 8px 0 grey;
+  }
+  /* ======= navigation ======== */
+  #navbar {  
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    border-color: transparent;
+  }
+  .logo {
+    font-family: "Squada One";
+    font-size: 34px;
+    background: linear-gradient(to right, #66468D,#30CFD0 27%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    text-align: left;
+  }
+  .dropdown {
+    float: right;
+    margin: -30px 0px 0px 0px;
+    width: 60px;
+  }
+  .menu{
+    width: 22px;
+    float: right;
+    clear: both;
+    height: 2px;
+    background: #393e46;
+    margin: 3px;
+  }
+  .dropdown-content {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 1s linear;
+    font-size: 18px;
+    text-align: right;
+    margin-top: 30px;
+  }
+  .dropdown-content a {
+    text-decoration: none;
+    color: #393e46;
+    line-height: 1.4em;
+  }
+  .dropdown-content a:hover {
+    background: linear-gradient(to right, #66468D,#30CFD0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  }
+  .drop {
+    visibility: visible;
+    opacity: 1;
+  }
+  .navbar-drop {
+    height: 100px;
+    transition: height 1s linear;
+  }
+  /* ======= main app body elements ======== */
+  
+  p {
+    margin: 30px 0px 10px 20px;
+    font-size: 20px;
+    text-align: left;
+  }
+  /* inputs */
+  input {
+    font-size: 16px;
+    outline: none;
+    border-radius: 5px;
+    border-color: transparent;
+    margin: auto;
+    width: 250px;
+    padding: 0;
+  }
+  .inputs p {
+    margin: 15px 0px 2px 20px;
+  }
+  /* buttons */
+  button, #submit {
+    font-size: 17px;
+    font-family: "Squada One";
+    letter-spacing: 1px;
+    background: #f7f7f7;
+    color: #393e46;
+    padding: 5px;
+    width: 180px !important;
+    border: solid #f7f7f7 3px;
+    border-radius: 3px;
+    outline: none;
+  }
+  #submit {
+    margin-top: 30px;
+  }
+  button:hover, #submit:hover {
+    border-color: #f7f7f7;
+    background: #393e46;
+    color: #f7f7f7;
+  }
+  hr {
+    margin: 20px 15px;
+    height: 1px;
+    background: #f7f7f7;
+  }
+  /* mood dropdown */
+  #mood-select {
+    width: 250px;
+    font-size: 16px;
+    background: #f7f7f7;
+    border-radius: 0px;
+    border-color: transparent;
+    outline: none;
+  }
+  /* generate button */
+  #generate {
+    width: 50%;
+    margin: auto;
+    left: 0;
+    right: 0;
+  }
+  /* mood viz window */
+  #mood-viz {
+    width: 360px;
+    height: 330px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    margin-top: 25px;
+    position: absolute;
+  }
+  /* mood pixels */
+  .moods {
+    position: absolute;
+  }
+  /* success and fail messages */
+  #submit-failed {
+    visibility: hidden;
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+  }
+  .show {
+    visibility: visible !important;
+    margin: 10px !important;
+    background: red;
+  }
+  /* ======= profile page ======== */
+  .profile-info small {
+    font-family: "Catamaran";
+  }
+  /* ======= calendar page ======== */
+  .calendar-view {
+    font-size: 18px;
+    max-height: 620px;
+    overflow: scroll;
+    width: 80%;
+    margin: auto;
+    margin-top: 35px;
+  }
+  
+  ::-webkit-scrollbar{
+      width: 0px;
+      background: transparent;
+  }
+  
+  
+  .calendar-mood {
+    padding: 10px 0px;
+  }
+  .calendar-view small {
+    font-family: "Catamaran";
+  }
+  .calendar-view p {
+    font-size: 16px;
+    margin-top: 5px;
+  }

@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS MoodApp;
+
 CREATE DATABASE MoodApp;
 
 USE MoodApp;
@@ -11,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Users(
 );
 
 CREATE TABLE IF NOT EXISTS UserDefinedEvent(
-	eventID int,
+	eventID int,	
 	username varchar(20),
 	event varchar(20),
 	PRIMARY KEY (eventID)
@@ -41,4 +43,18 @@ CREATE TABLE IF NOT EXISTS UserEventsByTime(
 	PRIMARY KEY (username, entryTime),
 	FOREIGN KEY (eventID) REFERENCES UserDefinedEvent(eventID)
 );
+
+
+INSERT INTO MoodColor (moodID, mood, color)
+VALUES 
+	(0, "Anger", "#FF5D5D"),
+	(1, "Anxiety", "#5DEBFF"),
+	(2, "Tranquility", "#C95DFF"),
+	(3, "Craving", "#FE8540"),
+	(4, "Disgust", "#BAFF68"),
+	(5, "Joy", "#FFE65D"),
+	(6, "Romance", "#FF5DD2"),
+	(7, "Sadness", "#5D72FF");
+	
+INSERT INTO Users VALUES ("test", "test", "password", NOW());
 
