@@ -4,11 +4,11 @@
 
 (1) Clone the repo
 (2) run `npm install`
-(3) `node app.js`
+(3) run `node app.js`
 
 ### Create a database
-(1) “tableCreation.sql” in the MariaDB command line
-(2) The connection information in app.js is using user: root and password: password
+(1) type “tableCreation.sql” in the MariaDB command line
+(2) The connection information in app.js is using `user: root` and `password: password`
 
 ## The app
 
