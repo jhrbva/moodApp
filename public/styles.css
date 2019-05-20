@@ -166,13 +166,18 @@
     margin: auto;
     margin-top: 35px;
   }
-  
+  .most-selected p {
+    font-family: "Catamaran";
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+  .most-selected-mood {
+    padding: 5px 0px;
+  }
   ::-webkit-scrollbar{
       width: 0px;
       background: transparent;
   }
-  
-  
   .calendar-mood {
     padding: 10px 0px;
   }

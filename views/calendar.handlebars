@@ -19,6 +19,13 @@
 {{!-- end of navbar --}}
 
 	<p>Your Moods Last Week</p>
+  <div class="most-selected">
+    <p>This week you felt mostly:</p>
+    {{#each calInfo}}
+    <div class="most-selected-mood" style="background-color:{{this.color}}">{{this.mood}}</div>
+    {{/each}}
+  </div>
+  <p>Moods Break Down:</p>
   <div class="calendar-view">
 	{{#each calInfo}}
 		<div class="calendar-mood" style="background-color:{{this.color}}">{{this.mood}}</div>

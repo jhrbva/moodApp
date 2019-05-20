@@ -1,6 +1,6 @@
 // Based on https://github.com/ericf/express-handlebars
 
-const port = 3000;
+const port = 8000;
 const express = require('express');
 const hb  = require('express-handlebars');
 const app = express();
@@ -74,5 +74,5 @@ app.post('/api/user/create', (req, res) => {
 });
 
 
-app.listen(3000);
+app.listen(8000);
 
